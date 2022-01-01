@@ -29,6 +29,7 @@ public class Ride
 		  this.driver=driver;
 		  this.source=source;
 		  this.numberOfPassengers=numberOfPassengers;
+		  this.dicount=new Discount();
 	  }
 	  public Ride(Area source, Area dest, String clientUserName,String driverUserName)
 	 {

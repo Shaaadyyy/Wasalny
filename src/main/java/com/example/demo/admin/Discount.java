@@ -7,6 +7,10 @@ import java.util.Calendar;
 import java.util.Date;
 public class Discount{
 	public float price;
+	public Discount()
+	{
+		this.price=0;
+	}
 	public boolean  birthdayCheck(Ride ride)
 	{
 		Date today = new Date();

@@ -1,6 +1,6 @@
 package com.example.demo;
 import com.example.demo.admin.Admin;
-import com.example.demo.ridePlanning.Area;
+//import com.example.demo.ridePlanning.Area;
 import com.example.demo.ridePlanning.Client;
 import com.example.demo.ridePlanning.Driver;
 import org.springframework.web.bind.annotation.*;
@@ -30,13 +30,14 @@ public class adminController {
         Admin admin=Admin.getInstance();
         return admin.releaseDriverAccount(driver);
     }
-    @PutMapping("area/addDiscount/{area}")
-    public String addDiscount(String area)
+    @PostMapping ("admin/addDiscount/{area}")
+    public String addDiscount(@PathVariable String area)
     {
         Admin admin=Admin.getInstance();
-        Area a=new Area(area);
-        admin.addDiscountToArea(a);
-        return "discount added to area "+a.area;
+        //String a=new Area(area,false);
+        admin.addDiscountToArea(area);
+        //System.out.println(a.discount);
+        return "discount added to "+area;
     }
     @PostMapping("client/release")
     public String releaseClientAccount(@RequestBody Client client)

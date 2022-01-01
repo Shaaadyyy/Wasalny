@@ -1,13 +1,13 @@
 package com.example.demo;
 
 import com.example.demo.ridePlanning.Driver;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public abstract class Account {
-	public String userName ; 
-	public String mobileNumber; 
-	public String email ; 
+	public String userName ;
+	public String mobileNumber;
+	public String email ;
 	public String password ;
-
 	public Account()
 	{
 
