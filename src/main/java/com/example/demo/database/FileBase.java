@@ -34,9 +34,6 @@ public class FileBase implements Storage {
         out.write("\n");
         out.close();
         clientsAccounts.add(client);
-        /*PrintWriter pw = new PrintWriter(new FileOutputStream("clientsAccounts.txt"));
-        pw.println(client.userName+" "+client.email+" "+client.password+" "+client.mobileNumber);
-        pw.close();*/
 	}
 	public void addDriver(Driver driver) throws IOException
 	{
@@ -46,11 +43,6 @@ public class FileBase implements Storage {
         out.write(driver.userName+" "+driver.email+" "+driver.mobileNumber+" ");
         out.write("\n");
         out.close();
-        /////////////////////////////////////////////////
-        /*PrintWriter pw = new PrintWriter(new FileOutputStream("driversAccounts.txt"));
-        pw.println(driver.userName+" "+driver.email+" "+driver.password+driver.NationalID+" "+driver.mobileNumber+" "+driver.DrivingLicense);
-        pw.close();*/
-        /////////////////////////////////////////////////
 	}
     public void addSuspendedDriver(Driver driver) throws IOException
 	{
@@ -68,7 +60,6 @@ public class FileBase implements Storage {
         PrintWriter pw = new PrintWriter(new FileOutputStream("SuspendedClient.txt"));
         pw.println(suspendedClient.userName+" "+suspendedClient.email+" "+suspendedClient.password+" "+suspendedClient.mobileNumber);
         pw.close();
-        ////////////////////////////////////////
 	}
     public void addDriverPendingRegistrations(Driver driver) throws IOException
 	{
@@ -78,7 +69,6 @@ public class FileBase implements Storage {
         out.write(driver.userName+" "+driver.email+" "+driver.mobileNumber+" ");
         out.write("\n");
         out.close();
-        ///////////////////////////////////////////////////////////
 	}
     public void addRide(Ride ride) throws FileNotFoundException
 	{

@@ -9,12 +9,15 @@ public DriverNotifier(Request request)
 	for(int i=0;i<fb.DriversAccounts.size();i++)
 	{
 		for(int j=0;j<fb.DriversAccounts.get(i).FavoriteArea.size();j++) {
-			if(fb.DriversAccounts.get(i).FavoriteArea.get(j).area==request.source.area &&fb.DriversAccounts.get(i).busy==false)
+			System.out.println("arrived here");
+			if(fb.DriversAccounts.get(i).FavoriteArea.get(j).equals(request.getSourceArea() )&&fb.DriversAccounts.get(i).busy==false)
 			{
-				ride=new Ride(request.source,request.dest,request.client,fb.DriversAccounts.get(i),request.numberOfPassenngers);
-				fb.DriversAccounts.get(i).rides.add(ride);
+				ride=new Ride(request.getSourceArea(),request.getDestArea(),request.getCLient(),fb.DriversAccounts.get(i),request.getNumberOfPassenngers());
+				//fb.DriversAccounts.get(i).rides.add(ride);
+				fb.DriversAccounts.get(i).currentRide=ride;
 				try {
 					fb.addRide(ride);
+					//System.out.println("--------"+ride.dest.discount);
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}

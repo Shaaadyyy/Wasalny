@@ -1,11 +1,10 @@
 package com.example.demo.admin;//package com.example.demo;
 import com.example.demo.Account;
 import com.example.demo.database.FileBase;
-import com.example.demo.ridePlanning.Area;
+//import com.example.demo.ridePlanning.Area;
 import com.example.demo.ridePlanning.Event;
 import com.example.demo.ridePlanning.Ride;
 import com.example.demo.ridePlanning.Client;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.ridePlanning.Driver;
 import java.io.IOException;
@@ -17,7 +16,7 @@ public class Admin extends Account {
 	public ArrayList<Driver>DriverPendingRegistrations=new ArrayList<>();
     public ArrayList<Ride>rides=new ArrayList<>();
 	private static Admin single_instance = null;
-
+	public ArrayList<String>discountAreas=new ArrayList<>();
 	private Admin()
 	{
 		userName = "admin";
@@ -50,7 +49,8 @@ public class Admin extends Account {
 				db.DriverPendingRegistrations.remove(DriverPendingRegistrations.get(i));
 				DriverPendingRegistrations.remove(DriverPendingRegistrations.get(i));
 				flag = true;
-				driver.authenticated=false;
+				driver.suspended=false;
+				//DriverPendingRegistrations.get(i).suspended=false;
 				return "driver verified";
 			}
 		}
@@ -93,10 +93,8 @@ public class Admin extends Account {
 				SuspendedDriver.add(d);
 				db.SuspendedDriver.add(d);
 				db.DriversAccounts.remove(d);
-				//db.SuspendedDriver.add(db.DriversAccounts.get(i));
-				//db.DriverPendingRegistrations.add(db.DriversAccounts.get(i));
-				//db.DriversAccounts.remove(db.DriversAccounts.get(i));
-				driver.authenticated=false;
+				//db.DriversAccounts.get(i).suspended=true;
+				driver.suspended=true;
 				flag = true;
 				return "driver suspended";
 			}
@@ -117,7 +115,8 @@ public class Admin extends Account {
 				db.addDriver(d);
 				SuspendedDriver.remove(d);
 				db.SuspendedDriver.remove(d);
-				driver.authenticated=false;
+				//SuspendedDriver.get(i).suspended=false;
+				driver.suspended=false;
 				flag = true;
 				return "Driver released";
 			}
@@ -136,6 +135,8 @@ public class Admin extends Account {
 			if(client.userName.equals(db.clientsAccounts.get(i).userName)){
 				Client c=db.clientsAccounts.get(i);
 				SuspendedClient.add(c);
+				//db.clientsAccounts.get(i).suspended=true;
+				client.suspended=true;
 				db.SuspendedClient.add(c);
 				db.clientsAccounts.remove(db.clientsAccounts.get(i));
 				flag=true;
@@ -151,12 +152,15 @@ public class Admin extends Account {
 	{
 		FileBase db=FileBase.getInstance();
 		boolean flag = false;
+		System.out.println(SuspendedClient.size());
 		for(int i = 0; i < SuspendedClient.size(); i++)
 		{
 			if(client.userName.equals(SuspendedClient.get(i).userName)){
-				Client c=SuspendedClient.get(0);
+				Client c=SuspendedClient.get(i);
 				SuspendedClient.remove(c);
 				db.SuspendedClient.remove(c);
+				client.suspended=false;
+				//SuspendedClient.get(i).suspended=false;
 				db.clientsAccounts.add(c);
 				flag=true;
 				return "client released";
@@ -166,9 +170,8 @@ public class Admin extends Account {
 			return "client not found";
 		return null;
 	}
-	public void addDiscountToArea(Area area)
+	public void addDiscountToArea(String area)
 	{
-		area.addDiscount(true);
-		
+		discountAreas.add(area);
 	}
 }
